@@ -1,0 +1,22 @@
+# ---- Environment & Secrets (NEVER commit these) ----
+.env
+.env.*
+!.env.example
+
+# ---- Node Modules ----
+node_modules/
+
+# ---- Uploaded Files (temp user data) ----
+uploads/
+
+# ---- Logs ----
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# ---- OS Files ----
+.DS_Store
+Thumbs.db
+
+# ---- In-memory DB binary cache ----
+.cache/
