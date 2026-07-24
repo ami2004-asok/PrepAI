@@ -191,4 +191,4 @@ MIT License — feel free to use, modify and distribute.
 
 ---
 
-> Built with ❤️ using React, Express, MongoDB & Google Gemini AI
+> Built using React, Express, MongoDB & Google Gemini AI
