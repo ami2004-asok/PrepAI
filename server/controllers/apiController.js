@@ -1,5 +1,5 @@
 const fs = require('fs');
-const pdfParse = require('pdf-parse');
+const { PDFParse } = require('pdf-parse');
 const User = require('../models/User');
 const ResumeAnalysis = require('../models/ResumeAnalysis');
 const Interview = require('../models/Interview');
@@ -16,11 +16,21 @@ exports.uploadResume = async (req, res, next) => {
     }
 
     let parsedText = '';
+    let parser = null;
     try {
       const dataBuffer = fs.readFileSync(req.file.path);
-      const data = await pdfParse(dataBuffer);
+      parser = new PDFParse({ data: dataBuffer });
+      const data = await parser.getText();
       parsedText = data.text ? data.text.trim() : '';
     } finally {
+      if (parser) {
+        try {
+          await parser.destroy();
+        } catch (destroyError) {
+          console.warn('Failed to destroy PDF parser cleanly:', destroyError.message);
+        }
+      }
+
       // Clean up uploaded temp file from disk
       if (fs.existsSync(req.file.path)) {
         fs.unlinkSync(req.file.path);
